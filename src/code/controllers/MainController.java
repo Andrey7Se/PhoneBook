@@ -140,7 +140,7 @@ public class MainController extends Observable implements Initializable {
                 Person person = tableView.getSelectionModel().getSelectedItem();
                 if (person == null) return;
                 editController.setPerson(person);
-                showDialog();
+                showDialog(false);
             }
         });
 
@@ -186,7 +186,7 @@ public class MainController extends Observable implements Initializable {
             case "btnAdd":
                 editController.setPhoneBook(phoneBook);
                 editController.setPerson(new Person());
-                showDialog();
+                showDialog(true);
                 Person person = editController.getPerson();
                 if (person != null) {
                     phoneBook.add(person);
@@ -200,7 +200,7 @@ public class MainController extends Observable implements Initializable {
                 }
                 editController.setPhoneBook(phoneBook);
                 editController.setPerson(selectedPerson);
-                showDialog();
+                showDialog(false);
                 if(editController.isChanged()){
                     tableView.refresh();
                 }
@@ -239,10 +239,9 @@ public class MainController extends Observable implements Initializable {
         labelInfo.setText(resBundle.getString("records.in.table") + ": " + count);
     }
 
-    private void showDialog() {
+    private void showDialog(boolean isAdd) {
         if (editDialogStage == null) {
             editDialogStage = new Stage();
-            editDialogStage.setTitle(resBundle.getString("edit.or.add.new"));
             editDialogStage.setMinHeight(200);
             editDialogStage.setMinWidth(400);
             editDialogStage.setResizable(false);
@@ -251,6 +250,7 @@ public class MainController extends Observable implements Initializable {
             editDialogStage.initOwner(mainStage);
             editDialogStage.initModality(Modality.WINDOW_MODAL);
         }
+        editDialogStage.setTitle(resBundle.getString(isAdd ? "title.add" : "title.edit"));
         editDialogStage.showAndWait();
     }
 
