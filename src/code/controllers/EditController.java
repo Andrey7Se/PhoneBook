@@ -27,6 +27,7 @@ public class EditController implements Initializable {
     private Person person;
     private ResourceBundle resBundle;
     private PhoneBook phoneBook;
+    private boolean isChanged;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -68,10 +69,16 @@ public class EditController implements Initializable {
         person.setPhone(phone);
 
         phoneBook.update(person);
-        phoneBook.getPersonList().forEach(System.out::println);
+        isChanged = true;
 
         Node node = (Node) actionEvent.getSource();
         Stage stage = (Stage) node.getScene().getWindow();
         stage.close();
+    }
+
+    public boolean isChanged(){
+        boolean result = isChanged;
+        isChanged = false;
+        return result;
     }
 }

@@ -184,6 +184,7 @@ public class MainController extends Observable implements Initializable {
 
         switch (clickedButton.getId()) {
             case "btnAdd":
+                editController.setPhoneBook(phoneBook);
                 editController.setPerson(new Person());
                 showDialog();
                 Person person = editController.getPerson();
@@ -197,9 +198,12 @@ public class MainController extends Observable implements Initializable {
                     DialogManager.showInfoDialog(resBundle.getString("error"), resBundle.getString("select.person"));
                     return;
                 }
-                editController.setPerson(selectedPerson);
                 editController.setPhoneBook(phoneBook);
+                editController.setPerson(selectedPerson);
                 showDialog();
+                if(editController.isChanged()){
+                    tableView.refresh();
+                }
                 break;
 
             case "btnDelete":

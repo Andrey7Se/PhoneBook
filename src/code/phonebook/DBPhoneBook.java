@@ -88,10 +88,12 @@ public class DBPhoneBook implements PhoneBook {
              PreparedStatement statement = con.prepareStatement(
                      "UPDATE person SET fio=?, phone=? WHERE id=?"
              )) {
+
             statement.setString(1, person.getFio());
             statement.setString(2, person.getPhone());
             statement.setInt(3, person.getId());
 
+            statement.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(DBPhoneBook.class.getName()).log(Level.SEVERE, null, ex);
         }
